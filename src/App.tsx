@@ -1,6 +1,5 @@
 import './App.css'
 import { ModeToggle } from './components/mode-toggle'
-import { Button } from './components/ui/button'
 import Login from './Pages/Login'
 import { ThemeProvider } from "@/components/theme-provider"
 
