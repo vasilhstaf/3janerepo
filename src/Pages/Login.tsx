@@ -32,7 +32,7 @@ function Login() {
       />
       <div style={{ position: "relative", zIndex: 1 }}>
         <Card
-          className="w-full max-w-md mx-auto border border-gray-200 bg-[#F4F4F4] rounded-[2px] dark:text-neutral-100 dark:border-gray-700"
+          className="w-full max-w-md mx-auto border border-gray-200 bg-[#F4F4F4] rounded-[2px]"
           style={{ boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.25)', background: 'rgba(244,244,244,1)' }}
         >
           <CardHeader className="text-center">
