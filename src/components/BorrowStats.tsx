@@ -1,6 +1,6 @@
 export function BorrowStats() {
   return (
-    <div className="max-w-[390px] w-full mx-auto rounded bg-white shadow-sm px-3 py-2 flex flex-col gap-2" style={{ fontFamily: 'PP Fraktion Mono, monospace', height: '66px' }}>
+    <div style={{ maxWidth: '390px', width: '100%', margin: '0 auto', borderRadius: '8px', background: 'white', boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)', padding: '8px 12px', fontFamily: 'PP Fraktion Mono, monospace', height: '66px' }}>
       <div className="grid grid-cols-3 gap-[1px] text-center items-start">
         {/* Borrowed */}
         <div className="flex flex-col items-center">
@@ -8,7 +8,7 @@ export function BorrowStats() {
             <span
               style={{
                 color: '#8F9396',
-                fontSize: 12,
+                fontSize: 33,
                 fontWeight: 400,
                 letterSpacing: '-0.28px',
                 lineHeight: 'normal',

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -16,23 +17,18 @@ function Login() {
     e.preventDefault();
     navigate('/dashboard');
   }
+
+  // Auto-navigate to dashboard for testing
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/dashboard');
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [navigate]);
   return (
-    <>
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 0,
-          width: "100vw",
-          height: "100vh",
-          background: "url('/Onboarding background.png') center center / cover no-repeat",
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
-      />
-      <div style={{ position: "relative", zIndex: 1 }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ position: 'relative', zIndex: 2 }}>
         <Card
-          className="w-full max-w-md mx-auto border border-gray-200 bg-[#F4F4F4] rounded-[2px]"
+        className="w-full max-w-md border border-gray-200 bg-[#F4F4F4] rounded-[2px]"
           style={{ boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.25)', background: 'rgba(244,244,244,1)' }}
         >
           <CardHeader className="text-center">
@@ -118,7 +114,6 @@ function Login() {
           </CardContent>
         </Card>
       </div>
-    </>
   )
 }
 
