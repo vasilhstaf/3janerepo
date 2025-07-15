@@ -15,19 +15,18 @@ export const columns: ColumnDef<Payment>[] = [
   {
     id: "select",
     header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+      <input
+        type="checkbox"
+        checked={table.getIsAllPageRowsSelected()}
+        onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
-      <Checkbox
+      <input
+        type="checkbox"
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onChange={(e) => row.toggleSelected(e.target.checked)}
         aria-label="Select row"
       />
     ),
