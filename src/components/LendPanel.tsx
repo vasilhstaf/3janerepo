@@ -24,7 +24,7 @@ export default function LendPanel({
 
   // Format numbers with commas
   const format = (n: number) => n.toLocaleString();
-  const formatK = (n: number) => `${(n / 1000).toFixed(1)}K`;
+  const formatK = (n: number) => `${String(n)[0]}K`;
 
   return (
     <div className="dashboard-panel" style={{ fontFamily: 'PPFraktionMono, monospace', width: '100%', maxWidth: 390, margin: '40px auto 0' }}>
@@ -33,7 +33,7 @@ export default function LendPanel({
         display: 'flex',
         justifyContent: 'space-between',
         background: 'white',
-        borderRadius: 8,
+        borderRadius: 4,
         boxShadow: '0 1px 3px rgba(0,0,0,0.07)',
         padding: '16px 20px',
         marginBottom: 12,
@@ -53,15 +53,15 @@ export default function LendPanel({
           value: janeBalance,
         }].map(({ label, icon, value }) => (
           <div className="dashboard-balance-item" key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
-            <div className="dashboard-balance-label" style={{ fontSize: 12, color: '#8F9396', marginBottom: 4, display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
+            <div className="dashboard-balance-label" style={{ fontSize: 12, color: '#8F9396', marginBottom: 4, display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2, whiteSpace: 'nowrap' }}>
               {label} <span style={{ fontSize: 12 }}>ⓘ</span>
             </div>
-            <div className="dashboard-balance-main" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
-              <img src={icon} alt={label} style={{ width: 22, height: 22 }} />
-              <span style={{ fontSize: 16, color: '#111827', fontWeight: 700 }}>{format(value)}</span>
-            </div>
-            <div className="dashboard-balance-sub" style={{ fontSize: 14, color: '#8F9396', marginTop: 2 }}>
-              {formatK(value)}
+            <div className="dashboard-balance-main" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2, whiteSpace: 'nowrap' }}>
+              <img src={icon} alt={label} style={{ width: 16, height: 16 }} />
+              <span style={{ fontSize: 14, color: '#111827', fontWeight: 700 }}>{format(value)}</span>
+              {label !== '$JANE Balance' && (
+                <span style={{ fontSize: 12, color: '#8F9396', marginLeft: 4, background: '#F5F6F7', borderRadius: 2, padding: '2px 6px', fontWeight: 500 }}>{formatK(value)}</span>
+              )}
             </div>
           </div>
         ))}
@@ -70,7 +70,7 @@ export default function LendPanel({
       {/* Main card */}
       <div className="dashboard-card" style={{
         background: 'white',
-        borderRadius: 12,
+        borderRadius: 4,
         boxShadow: '0 1px 3px rgba(0,0,0,0.10)',
         padding: 0,
         overflow: 'hidden',
@@ -115,7 +115,7 @@ export default function LendPanel({
           <div className="dashboard-apy-badge" style={{
             background: '#0029FF',
             color: 'white',
-            borderRadius: 6,
+            borderRadius: 2,
             fontSize: 14,
             fontWeight: 600,
             padding: '6px 18px',
@@ -132,64 +132,67 @@ export default function LendPanel({
             style={{
               background: 'white',
               border: '1px solid #E4E7EA',
-              borderRadius: 12,
+              borderRadius: 4,
               margin: 20,
               marginBottom: 0,
               padding: 0,
               boxShadow: 'none',
               overflow: 'hidden',
+              position: 'relative', // Make parent relative for absolute arrow
             }}
           >
             {/* Top section: Deposit */}
-            <div style={{ padding: '12px 12px 0 12px' }}>
+            <div style={{ padding: '12px 12px 12px 12px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                 <span style={{ whiteSpace: 'nowrap' }}>
                   <span style={{ fontWeight: 700, color: '#111827', fontSize: 14, letterSpacing: '0.01em' }}>Deposit</span>
                   <span style={{ color: '#8F9396', fontWeight: 400, fontSize: 14, marginLeft: 8 }}>// Withdraw</span>
                 </span>
-                <span style={{ color: '#8F9396', fontFamily: 'PPFraktionMono, monospace', fontSize: 14, display: 'flex', alignItems: 'center', gap: 2 }}>
-                  Available <span style={{ color: '#111827', fontWeight: 700, marginLeft: 2 }}>{available}K</span>
-                </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 0 }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <input
-                    className="dashboard-amount-input"
-                    type="number"
-                    value={amount}
-                    onChange={e => setAmount(e.target.value)}
-                    placeholder="0.00"
-                    style={{
-                      fontSize: 20,
-                      color: '#0029FF',
-                      fontWeight: 700,
-                      border: 'none',
-                      outline: 'none',
-                      background: 'transparent',
-                      width: 120,
-                      textAlign: 'left',
-                      fontFamily: 'PPFraktionMono, monospace',
-                    }}
-                  />
-                  <span style={{ fontSize: 12, color: '#8F9396', marginTop: 12,  }}>$32,019</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <img src="/USD3.svg" alt="USDC" style={{ width: 24, height: 24 }} />
-                  <span style={{ fontSize: 14, color: '#111827', fontWeight: 700 }}>USDC</span>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <input
+                      className="dashboard-amount-input"
+                      type="number"
+                      value={amount}
+                      onChange={e => setAmount(e.target.value)}
+                      placeholder="0.00"
+                      style={{
+                        fontSize: 20,
+                        color: '#0029FF',
+                        fontWeight: 700,
+                        border: 'none',
+                        outline: 'none',
+                        background: 'transparent',
+                        width: 120,
+                        textAlign: 'left',
+                        fontFamily: 'PPFraktionMono, monospace',
+                      }}
+                    />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <img src="/USD3.svg" alt="USDC" style={{ width: 24, height: 24, display: 'block' }} />
+                      <span style={{ fontSize: 14, color: '#111827', fontWeight: 700 }}>USDC</span>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: 12 }}>
+                    <span style={{ fontSize: 12, color: '#8F9396' }}>$32,019</span>
+                    <span style={{ fontSize: 12, color: '#8F9396' }}>Available <span style={{ color: '#111827', fontWeight: 700, marginLeft: 2 }}>{available}K</span></span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Divider with arrow */}
-            <div style={{ position: 'relative', margin: '0px 0 0 0', height: 48 }}>
+            <div style={{ position: 'absolute', left: 0, top: '50%', width: '100%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
               <hr style={{ border: 0, borderTop: '1px solid #E4E7EA', margin: 0, position: 'absolute', top: '50%', left: 0, right: 0, transform: 'translateY(-50%)', zIndex: 1 }} />
-              <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', background: 'white', borderRadius: 8, boxShadow: '0 1px 2px rgba(0,0,0,0.04)', width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1.5px solid #E4E7EA', zIndex: 2 }}>
+              <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', background: 'white', borderRadius: 2, boxShadow: '0 1px 2px rgba(0,0,0,0.04)', width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1.5px solid #E4E7EA', zIndex: 2 }}>
                 <span style={{ fontSize: 14, color: '#181C23', fontWeight: 500 }}>↓</span>
               </div>
             </div>
 
             {/* Bottom section: You receive */}
-            <div style={{ padding: '0 12px 12px 12px' }}>
+            <div style={{ padding: '12px 12px 12px 12px', }}>
               <div style={{ color: '#8F9396', fontSize: 14, marginBottom: 12 }}>You receive</div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 0 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
@@ -232,8 +235,8 @@ export default function LendPanel({
             color: 'white',
             fontSize: 12,
             fontWeight: 700,
-            padding: '14px 0',
-            borderRadius: 6,
+            padding: '12px 0',
+            borderRadius: 2,
             border: 'none',
             cursor: 'pointer',
             fontFamily: 'PPFraktionMono, monospace',

@@ -33,10 +33,9 @@ export default function SimpleNavbar({ active = 'dashboard', color }: SimpleNavb
     }}>
       <div style={{
         width: '100%',
-        maxWidth: '1200px',
         display: 'flex',
         alignItems: 'center',
-        padding: '0 16px',
+        padding: '100px 32px',
         boxSizing: 'border-box'
       }}>
         {/* Logo */}
@@ -50,23 +49,41 @@ export default function SimpleNavbar({ active = 'dashboard', color }: SimpleNavb
         {/* Navigation Links */}
         <ul style={{ 
           display: 'flex', 
-          gap: '24px', 
+          gap: '12px', 
           listStyle: 'none',
           margin: 0,
           padding: 0,
           fontSize: '16px',
           fontWeight: 'normal'
         }}>
-          <li><a href="/dashboard" style={active === 'dashboard' ? { ...linkStyles.base, ...linkStyles.active } : linkStyles.base}>Borrow</a></li>
-          <li><a href="/lend" style={active === 'lend' ? { ...linkStyles.base, ...linkStyles.active } : linkStyles.base}>Lend</a></li>
-          <li><a href="/info" style={active === 'info' ? { ...linkStyles.base, ...linkStyles.active } : linkStyles.base}>info</a></li>
+          <li>
+            <a href="/dashboard" style={{ display: 'flex', alignItems: 'center', gap: 1, textDecoration: 'none', fontFamily: 'PPFraktionMono, monospace', color: active === 'dashboard' ? '#0029FF' : '#374151', fontWeight: active === 'dashboard' ? 700 : 400 }}>
+              <span style={{ color: '#0029FF', fontSize: 24, fontWeight: 400, opacity: active === 'dashboard' ? 1 : 0 }}>[</span>
+              <span style={{ color: active === 'dashboard' ? '#0029FF' : '#374151', fontWeight: active === 'dashboard' ? 700 : 400 }}>Borrow</span>
+              <span style={{ color: '#0029FF', fontSize: 24, fontWeight: 400, opacity: active === 'dashboard' ? 1 : 0 }}>]</span>
+            </a>
+          </li>
+          <li>
+            <a href="/lend" style={{ display: 'flex', alignItems: 'center', gap: 1, textDecoration: 'none', fontFamily: 'PPFraktionMono, monospace', color: active === 'lend' ? '#0029FF' : '#374151', fontWeight: active === 'lend' ? 700 : 400 }}>
+              <span style={{ color: '#0029FF', fontSize: 24, fontWeight: 400, opacity: active === 'lend' ? 1 : 0 }}>[</span>
+              <span style={{ color: active === 'lend' ? '#0029FF' : '#374151', fontWeight: active === 'lend' ? 700 : 400 }}>Lend</span>
+              <span style={{ color: '#0029FF', fontSize: 24, fontWeight: 400, opacity: active === 'lend' ? 1 : 0 }}>]</span>
+            </a>
+          </li>
+          <li>
+            <a href="/info" style={{ display: 'flex', alignItems: 'center', gap: 1, textDecoration: 'none', fontFamily: 'PPFraktionMono, monospace', color: active === 'info' ? '#0029FF' : '#374151', fontWeight: active === 'info' ? 700 : 400 }}>
+              <span style={{ color: '#0029FF', fontSize: 24, fontWeight: 400, opacity: active === 'info' ? 1 : 0 }}>[</span>
+              <span style={{ color: active === 'info' ? '#0029FF' : '#374151', fontWeight: active === 'info' ? 700 : 400 }}>info</span>
+              <span style={{ color: '#0029FF', fontSize: 24, fontWeight: 400, opacity: active === 'info' ? 1 : 0 }}>]</span>
+            </a>
+          </li>
         </ul>
         <div style={{ flex: 1 }} />
         <button style={{ 
           background: '#0029FF', 
           color: 'white', 
           border: 'none', 
-          borderRadius: '4px', 
+          borderRadius: '2px', 
           padding: '8px 16px',
           cursor: 'pointer',
           fontSize: '14px',

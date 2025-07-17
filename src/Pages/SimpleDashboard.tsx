@@ -1,10 +1,18 @@
 import { useState } from 'react';
 import { CreditInfo } from "@/components/CreditInfo";
 import SimpleNavbar from "@/components/SimpleNavbar";
+import { TermsModal } from "@/components/borrow/TermsModal";
+import Banner from "@/components/Banner";
+import CreditLineBanner from "@/components/ui/credit line";
 
 export default function SimpleDashboard() {
   const [mode, setMode] = useState<'borrow' | 'repay'>('borrow');
-  
+  const [showTerms, setShowTerms] = useState(false);
+  const [inputAmount, setInputAmount] = useState('0');
+  const handleBorrowClick = () => setShowTerms(true);
+  const handleAgree = () => setShowTerms(false);
+  const handleClose = () => setShowTerms(false);
+
   return (
     <div style={{ minHeight: '100vh' }}>
       {/* Background image */}
@@ -23,13 +31,20 @@ export default function SimpleDashboard() {
       {/* Main content */}
       <div style={{ position: "relative", zIndex: 1 }}>
       <SimpleNavbar active="dashboard" />
+      <div style={{ position: 'fixed', top: 110, right: 20, zIndex: 100 }}>
+        <CreditLineBanner />
+      </div>
+      <div style={{ height: '64px' }} /> {/* Spacer for fixed navbar */}
+      <Banner />
       <main style={{ 
         maxWidth: '1200px', 
-        margin: '104px auto 0', 
+        margin: '40px auto 0', 
         padding: '24px',
         fontFamily: 'PPFraktionMono, monospace',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        position: 'relative',
       }}>
+        
 
         
         {/* Original BorrowStats Component */}
@@ -37,7 +52,7 @@ export default function SimpleDashboard() {
           maxWidth: '390px', 
           width: '100%', 
           margin: '0 auto 12px',
-          borderRadius: '8px', 
+          borderRadius: '4px', 
           backgroundColor: 'white', 
           boxShadow: '0 1px 3px rgba(0,0,0,0.1)', 
           padding: '4px',
@@ -131,7 +146,7 @@ export default function SimpleDashboard() {
           maxWidth: '390px', 
           width: '100%', 
           margin: '0 auto 12px',
-          borderRadius: '8px', 
+          borderRadius: '4px', 
           backgroundColor: 'white', 
           boxShadow: '0 1px 3px rgba(0,0,0,0.1)', 
           padding: '18px',
@@ -152,7 +167,8 @@ export default function SimpleDashboard() {
                   border: 'none',
                   backgroundColor: mode === 'borrow' ? 'white' : 'transparent',
                   color: mode === 'borrow' ? '#181C23' : '#A3A7AD',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  fontFamily: 'PPFraktionMono, monospace',
                 }}
               >
                 Borrow
@@ -168,7 +184,8 @@ export default function SimpleDashboard() {
                   border: 'none',
                   backgroundColor: mode === 'repay' ? 'white' : 'transparent',
                   color: mode === 'repay' ? '#181C23' : '#A3A7AD',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  fontFamily: 'PPFraktionMono, monospace',
                 }}
               >
                 Repay
@@ -177,43 +194,83 @@ export default function SimpleDashboard() {
           </div>
           
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
-              <div style={{ 
-                fontSize: '70px', 
-                fontWeight: '400', 
-                color: '#0029FF', 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '2px',
-                letterSpacing: '-2px'
-              }}>
-                <span>$</span>
-                <span>0</span>
-              </div>
-            </div>
+            <div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginBottom: '8px',
+  width: '100%',
+}}>
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '70px',
+    fontWeight: 400,
+    color: '#0029FF',
+    letterSpacing: '-2px',
+    fontFamily: 'PP Fraktion Mono, monospace',
+  }}>
+    <span>$</span>
+    <input
+      type="number"
+      min="0"
+      value={inputAmount}
+      onChange={e => {
+        let val = e.target.value.replace(/^0+(?!$)/, '');
+        if (val.length > 6) val = val.slice(0, 6);
+        if (/^\d*$/.test(val)) setInputAmount(val);
+      }}
+      maxLength={6}
+      placeholder="0"
+      style={{
+        minWidth: '60px',
+        width: `${Math.max(1, inputAmount.length) * 42}px`, // auto-grow with digits
+        fontSize: '70px',
+        fontWeight: 400,
+        color: '#0029FF',
+        background: 'transparent',
+        border: 'none',
+        outline: 'none',
+        textAlign: 'left',
+        letterSpacing: '-2px',
+        fontFamily: 'PP Fraktion Mono, monospace',
+        appearance: 'textfield',
+        MozAppearance: 'textfield',
+        WebkitAppearance: 'none',
+        padding: 0,
+        margin: 0,
+        overflowX: 'hidden',
+      }}
+      inputMode="numeric"
+    />
+  </div>
+</div>
             <div style={{ fontSize: '12px', color: '#8F9396', marginBottom: '48px' }}>
               Max Borrow 8.23K
             </div>
-            <button style={{
-              width: '100%',
-              backgroundColor: '#0029FF',
-              color: 'white',
-              fontSize: '12px',
-              fontWeight: 'normal',
-              padding: '12px',
-              borderRadius: '4px',
-              marginBottom: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              border: 'none',
-              cursor: 'pointer',
-              letterSpacing: '0.1px',
-              fontFamily: 'PPFraktionMono, monospace'
-            }}>
+            <button
+              style={{
+                width: '100%',
+                backgroundColor: '#0029FF',
+                color: 'white',
+                fontSize: '12px',
+                fontWeight: 'normal',
+                padding: '12px',
+                borderRadius: '4px',
+                marginBottom: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                letterSpacing: '0.1px',
+                fontFamily: 'PPFraktionMono, monospace'
+              }}
+              onClick={mode === 'borrow' ? handleBorrowClick : undefined}
+            >
               {mode === 'borrow' ? (
-                <>Borrow <img src="/Frame 1.svg" alt="USDC" width={16} height={16} /> 59,000.45 USDC</>
+                <>Borrow <img src="/Frame 1.svg" alt="USDC" width={16} height={16} /> {inputAmount} USDC</>
               ) : (
                 <>Repay <img src="/Frame 1.svg" alt="USDC" width={16} height={16} /> 59,000.45 USDC</>
               )}
@@ -299,6 +356,7 @@ export default function SimpleDashboard() {
           </div>
         </div>
       </footer>
+      <TermsModal open={showTerms} onClose={handleClose} onAgree={handleAgree} inputAmount={inputAmount} />
       </div>
     </div>
   );

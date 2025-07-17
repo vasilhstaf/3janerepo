@@ -8,7 +8,7 @@ export function CreditInfo() {
       maxWidth: '390px', 
       width: '100%', 
       margin: '0 auto 12px',
-      borderRadius: '8px', 
+      borderRadius: '4px', 
       backgroundColor: 'white', 
       boxShadow: '0 1px 3px rgba(0,0,0,0.1)', 
       fontFamily: 'PP Fraktion Mono, monospace'
