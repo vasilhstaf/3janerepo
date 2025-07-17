@@ -2,34 +2,12 @@ import React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
-
-// Stub InfoTooltip
-function InfoTooltip({ children, className }: { children: React.ReactNode; className?: string }) {
-  return (
-    <span className={className} style={{ borderBottom: "1px dotted #888", cursor: "help" }}>
-      {children}
-    </span>
-  );
-}
-
-// Stub BackingAccordionRow
-function BackingAccordionRow({ item, isLast }: { item: any, isLast: boolean }) {
-  return (
-    <TableRow className={isLast ? '' : '!border-b-2 !border-gray-400'} style={{ height: 56 }}>
-      <TableCell colSpan={4} style={{ paddingLeft: 24, paddingRight: 24 }}>
-        <div>Accordion Row for {item.invoice}</div>
-      </TableCell>
-    </TableRow>
-  );
-}
 
 // Stub BackingRow
 function BackingRow({ item, isLast }: { item: any, isLast: boolean }) {
@@ -143,7 +121,6 @@ export default function BackingTable() {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-  const bankCoinbaseOnchainTotalAssets = 0; // stub value
 
   return (
     <div className="w-full overflow-x-auto" style={{ minWidth: '100%', maxWidth: '100%' }}>

@@ -3,17 +3,6 @@ interface SimpleNavbarProps {
   color?: string;
 }
 
-const linkStyles = {
-  base: {
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: '#374151',
-  },
-  active: {
-    color: '#0029FF',
-    fontWeight: 700,
-  },
-};
 
 export default function SimpleNavbar({ active = 'dashboard', color }: SimpleNavbarProps) {
   return (

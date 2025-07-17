@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export function TermsModal({ open, onClose, onAgree, inputAmount = '0' }: { open: boolean; onClose: () => void; onAgree: () => void; inputAmount?: string }) {
   const [checked, setChecked] = useState(false);
