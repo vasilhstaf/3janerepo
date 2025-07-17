@@ -4,7 +4,11 @@ export default function Banner() {
     <div
       style={{
         width: '100%',
-        background: '#0029FF url(/background.png) center center / cover no-repeat',
+        backgroundColor: '#0029FF',
+        backgroundImage: 'url(/Background.png)',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
         height: '28px',
         display: 'flex',
         alignItems: 'center',
